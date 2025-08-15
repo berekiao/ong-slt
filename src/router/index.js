@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Website from "@/components/website.vue";
+import Website from "@/components/Website.vue";
 import Accueil from "../Accueil.vue";
 import Apropos from "../Apropos.vue";
 import Logo from "../Logo.vue";
