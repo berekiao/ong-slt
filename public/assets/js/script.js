@@ -2,6 +2,34 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     
+    // Mobile menu functionality
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileNavMenu = document.getElementById('navMenu');
+    
+    if (mobileMenuToggle && mobileNavMenu) {
+        mobileMenuToggle.addEventListener('click', function() {
+            mobileMenuToggle.classList.toggle('active');
+            mobileNavMenu.classList.toggle('active');
+        });
+        
+        // Fermer le menu quand on clique sur un lien
+        const navLinks = mobileNavMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuToggle.classList.remove('active');
+                mobileNavMenu.classList.remove('active');
+            });
+        });
+        
+        // Fermer le menu quand on clique en dehors
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuToggle.contains(event.target) && !mobileNavMenu.contains(event.target)) {
+                mobileMenuToggle.classList.remove('active');
+                mobileNavMenu.classList.remove('active');
+            }
+        });
+    }
+    
     // Slider functionality
     const slider = {
         currentSlide: 0,
@@ -12,14 +40,19 @@ document.addEventListener('DOMContentLoaded', function() {
         autoPlayInterval: null,
         
         init() {
-            this.bindEvents();
-            this.startAutoPlay();
+            // Vérifier si les éléments du slider existent avant d'initialiser
+            if (this.slides.length > 0 && this.prevBtn && this.nextBtn) {
+                this.bindEvents();
+                this.startAutoPlay();
+            }
         },
         
         bindEvents() {
             // Navigation buttons
-            this.prevBtn.addEventListener('click', () => this.prevSlide());
-            this.nextBtn.addEventListener('click', () => this.nextSlide());
+            if (this.prevBtn && this.nextBtn) {
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+            }
             
             // Indicators
             this.indicators.forEach((indicator, index) => {
@@ -234,4 +267,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     console.log('Site SGDS chargé avec succès !');
-}); 
+});
